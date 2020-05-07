@@ -2169,13 +2169,17 @@ Adding the following to a package:
 
 .. code-block:: python
 
-    conflicts('%intel', when='@1.2')
+    conflicts('%intel', when='@:1.2',
+              msg='<myNicePackage> <= v1.2 cannot be built with Intel ICC, '
+                  'please use a newer release.')
 
 we express the fact that the current package *cannot be built* with the Intel
-compiler when we are trying to install version "1.2". The ``when`` argument can
-be omitted, in which case the conflict will always be active.
+compiler when we are trying to install a version "<=1.2". The ``when`` argument
+can be omitted, in which case the conflict will always be active.
 Conflicts are always evaluated after the concretization step has been performed,
 and if any match is found a detailed error message is shown to the user.
+You can add an additional message via the ``msg=`` parameter to a conflict that
+provideds more specific instructions for users.
 
 .. _packaging_extensions:
 
@@ -2197,7 +2201,7 @@ property to ``True``, e.g.:
        extendable = True
        ...
 
-To make a package into an extension, simply add simply add an
+To make a package into an extension, simply add an
 ``extends`` call in the package definition, and pass it the name of an
 extendable package:
 
@@ -2211,6 +2215,10 @@ extendable package:
 Now, the ``py-numpy`` package can be used as an argument to ``spack
 activate``.  When it is activated, all the files in its prefix will be
 symbolically linked into the prefix of the python package.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Adding additional constraints
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Some packages produce a Python extension, but are only compatible with
 Python 3, or with Python 2.  In those cases, a ``depends_on()``
@@ -2231,8 +2239,7 @@ variant(s) are selected.  This may be accomplished with conditional
 .. code-block:: python
 
    class FooLib(Package):
-       variant('python', default=True, description= \
-           'Build the Python extension Module')
+       variant('python', default=True, description='Build the Python extension Module')
        extends('python', when='+python')
        ...
 
@@ -2913,7 +2920,7 @@ discover its dependencies.
 
 If you want to see the environment that a package will build with, or
 if you want to run commands in that environment to test them out, you
-can use the :ref:`cmd-spack-env` command, documented
+can use the :ref:`cmd-spack-build-env` command, documented
 below.
 
 ^^^^^^^^^^^^^^^^^^^^^
@@ -3607,7 +3614,7 @@ the command line.
     For most compilers, ``$rpath_flag`` is ``-Wl,-rpath,``. However, NAG
     passes its flags to GCC instead of passing them directly to the linker.
     Therefore, its ``$rpath_flag`` is doubly wrapped: ``-Wl,-Wl,,-rpath,``.
-    ``$rpath_flag`` can be overriden on a compiler specific basis in
+    ``$rpath_flag`` can be overridden on a compiler specific basis in
     ``lib/spack/spack/compilers/$compiler.py``.
 
 The compiler wrappers also pass the compiler flags specified by the user from
@@ -4332,31 +4339,31 @@ directory, install directory, package directory) and others change to
 core spack locations.  For example, ``spack cd --module-dir`` will take you to
 the main python source directory of your spack install.
 
-.. _cmd-spack-env:
+.. _cmd-spack-build-env:
 
-^^^^^^^^^^^^^
-``spack env``
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
+``spack build-env``
+^^^^^^^^^^^^^^^^^^^
 
-``spack env`` functions much like the standard unix ``env`` command,
-but it takes a spec as an argument.  You can use it to see the
+``spack build-env`` functions much like the standard unix ``build-env``
+command, but it takes a spec as an argument.  You can use it to see the
 environment variables that will be set when a particular build runs,
 for example:
 
 .. code-block:: console
 
-   $ spack env mpileaks@1.1%intel
+   $ spack build-env mpileaks@1.1%intel
 
 This will display the entire environment that will be set when the
 ``mpileaks@1.1%intel`` build runs.
 
 To run commands in a package's build environment, you can simply
-provide them after the spec argument to ``spack env``:
+provide them after the spec argument to ``spack build-env``:
 
 .. code-block:: console
 
    $ spack cd mpileaks@1.1%intel
-   $ spack env mpileaks@1.1%intel ./configure
+   $ spack build-env mpileaks@1.1%intel ./configure
 
 This will cd to the build directory and then run ``configure`` in the
 package's build environment.
