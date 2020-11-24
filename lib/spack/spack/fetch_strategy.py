@@ -336,6 +336,15 @@ class URLFetchStrategy(FetchStrategy):
             raise FailedDownloadError(url)
 
     def _existing_url(self, url):
+        # first, try the range request, if that fails
+        # try again with header request
+        if not self._check_existing_url_by_range_request(url):
+            return self._check_existing_url_by_header_request(url)
+        else:
+            # if range request was successful, skip second check
+            return True
+
+    def _check_existing_url_by_range_request(self, url):
         tty.debug('Checking existence of {0}'.format(url))
 
         if spack.config.get('config:url_fetch_method') == 'curl':
@@ -355,6 +364,14 @@ class URLFetchStrategy(FetchStrategy):
                 msg = "Urllib fetch failed to verify url {0}".format(url)
                 raise FailedDownloadError(url, msg)
             return (response.getcode() is None or response.getcode() == 200)
+
+    def _check_existing_url_by_header_request(self, url):
+        tty.debug('Checking existence of {0}'.format(url))
+        curl = self.curl
+        # Try a header request to the url
+        curl_args = ['--stderr', '-', '-s', '-f', '-I', url]
+        _ = curl(*curl_args, fail_on_error=False, output=os.devnull)
+        return curl.returncode == 0
 
     def _fetch_from_url(self, url):
         if spack.config.get('config:url_fetch_method') == 'curl':
