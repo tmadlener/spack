@@ -14,6 +14,7 @@
 #   ~/.spack/modules.yaml
 # -------------------------------------------------------------------------
 modules:
+  enable: []
   # Paths to check when creating modules for all module sets
   prefix_inspections:
     bin:
