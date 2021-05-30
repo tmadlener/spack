@@ -18,6 +18,10 @@ class Xqilla(AutotoolsPackage, SourceforgePackage):
     variant('debug', default=False, description='Build a debugging version.')
     variant('shared', default=True, description='Build shared libraries.')
 
+    # see https://sourceforge.net/p/xqilla/bugs/48/
+    patch('xerces-3-2-0.patch', when="@:2.3.3")
+    patch('xerces-3-2-0_1.patch', when="@:2.3.3")
+
     depends_on('xerces-c')
 
     def configure_args(self):
