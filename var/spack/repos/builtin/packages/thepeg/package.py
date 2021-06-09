@@ -66,6 +66,7 @@ class Thepeg(AutotoolsPackage):
     depends_on('fastjet', when='@2.0.0:')
     depends_on('rivet', when='@2.0.3:')
     depends_on('boost', when='@2.1.1:')
+    depends_on('zlib',  when="@1.9.0:")
 
     depends_on('autoconf', type='build')
     depends_on('automake', type='build')
@@ -78,6 +79,10 @@ class Thepeg(AutotoolsPackage):
 
     def configure_args(self):
         args = ['--with-gsl=' + self.spec['gsl'].prefix, '--without-javagui']
+
+
+        if self.spec.satisfies('@1.9.0:'):
+            args += ['--with-zlib=' + self.spec['zlib'].prefix]
 
         if self.spec.satisfies('@:1.8'):
             args += ['--with-LHAPDF=' + self.spec['lhapdf'].prefix]
