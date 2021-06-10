@@ -116,6 +116,7 @@ class Rivet(AutotoolsPackage):
     depends_on('py-cython@0.24.0:', type='build')
     depends_on('swig', type=('build', 'run'))
     depends_on('yaml-cpp', when='@2.0.0:2.1.2', type=('build', 'run'))
+    depends_on('zlib')
 
     depends_on('autoconf', type='build')
     depends_on('automake', type='build')
@@ -165,6 +166,7 @@ class Rivet(AutotoolsPackage):
 
     def configure_args(self):
         args = []
+        args += ['--with-zlib=' + self.spec['zlib'].prefix]
         if self.spec.variants['hepmc'].value == '2':
             args += ['--with-hepmc=' + self.spec['hepmc'].prefix]
         else:
