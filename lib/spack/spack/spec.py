@@ -3582,8 +3582,11 @@ class Spec(object):
 
     def sorted_deps(self):
         """Return a list of all dependencies sorted by name."""
-        deps = self.flat_dependencies()
-        return tuple(deps[name] for name in sorted(deps))
+        #deps = self.flat_dependencies()
+        #return tuple(deps[name] for name in sorted(deps))  
+        # from https://github.com/spack/spack/issues/19782
+        deps = self.traverse(root=False)
+        return sorted(deps, key=lambda s: s.name)
 
     def eq_dag(self, other, deptypes=True, vs=None, vo=None):
         """True if the full dependency DAGs of specs are equal."""
