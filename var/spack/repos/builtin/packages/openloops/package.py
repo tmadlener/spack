@@ -74,7 +74,6 @@ class Openloops(Package):
                                     'Set to 1 if compiling a large number' +
                                     'of processes (e.g. lcg.coll)', default=0)
     depends_on('python', type=("build", "run"))
-    depends_on('scons', type=('build', 'run'))
 
     phases = ['configure', 'build', 'build_processes', 'install']
 
@@ -119,6 +118,7 @@ class Openloops(Package):
         scons('generator=1', 'compile=2')
 
     def build_processes(self, spec, prefix):
+        env['OLDPYTHON'] = self.spec['python'].prefix + '/bin/python'
         ol = Executable('./openloops')
         processes = self.spec.variants['processes'].value
         if '+compile_extra' in self.spec:
