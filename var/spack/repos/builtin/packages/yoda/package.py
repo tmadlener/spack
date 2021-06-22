@@ -90,5 +90,7 @@ class Yoda(AutotoolsPackage):
 
         if '+root' in self.spec:
             args += ['--enable-root']
+        else:
+            args += ['--disable-root']
 
         return args
