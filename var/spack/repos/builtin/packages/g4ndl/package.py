@@ -30,6 +30,11 @@ class G4ndl(Package):
                                  .format(self.version))
         env.set('G4NEUTRONHPDATA', install_path)
 
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        install_path = join_path(self.prefix.share, 'data', 'G4NDL{0}'
+                                 .format(self.version))
+        env.set('G4NEUTRONHPDATA', install_path)
+
     def url_for_version(self, version):
         """Handle version string."""
         return ("http://geant4-data.web.cern.ch/geant4-data/datasets/G4NDL.%s.tar.gz" % version)

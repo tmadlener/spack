@@ -31,6 +31,11 @@ class G4abla(Package):
                                  .format(self.version))
         env.set('G4ABLADATA', install_path)
 
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        install_path = join_path(self.prefix.share, 'data', 'G4ABLA{0}'
+                                 .format(self.version))
+        env.set('G4ABLADATA', install_path)
+
     def url_for_version(self, version):
         """Handle version string."""
         return ("http://geant4-data.web.cern.ch/geant4-data/datasets/G4ABLA.%s.tar.gz" % version)

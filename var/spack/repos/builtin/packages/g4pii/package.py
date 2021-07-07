@@ -30,6 +30,11 @@ class G4pii(Package):
                                  .format(self.version))
         env.set('G4PIIDATA', install_path)
 
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        install_path = join_path(self.prefix.share, 'data', 'G4PII{0}'
+                                 .format(self.version))
+        env.set('G4PIIDATA', install_path)
+
     def url_for_version(self, version):
         """Handle version string."""
         return ("https://geant4-data.web.cern.ch/geant4-data/datasets/G4PII.1.3.tar.gz" % version)
