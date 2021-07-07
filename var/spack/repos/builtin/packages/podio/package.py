@@ -55,6 +55,12 @@ class Podio(CMakePackage):
         env.prepend_path('PYTHONPATH', self.prefix.python)
         env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
 
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        env.prepend_path('PYTHONPATH', self.prefix.python)
+        env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib)
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib64)
+
     def url_for_version(self, version):
         """Translate version numbers to ilcsoft conventions.
         in spack, the convention is: 0.1 (or 0.1.0) 0.1.1, 0.2, 0.2.1 ...
