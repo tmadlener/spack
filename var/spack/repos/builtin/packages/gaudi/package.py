@@ -114,6 +114,14 @@ class Gaudi(CMakePackage):
         env.prepend_path('PYTHONPATH', self.prefix.python)
         env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
 
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        # environment as in Gaudi.xenv
+        env.prepend_path('PATH', self.prefix.scripts)
+        env.prepend_path('PYTHONPATH', self.prefix.python)
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib)
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib64)
+        env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
+
     def url_for_version(self, version):
         major = str(version[0])
         minor = str(version[1])
