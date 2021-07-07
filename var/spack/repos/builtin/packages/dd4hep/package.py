@@ -104,6 +104,17 @@ class Dd4hep(CMakePackage):
         ]
         return args
 
+
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        # used p.ex. in ddsim to find DDDetectors dir
+        env.set("DD4hepINSTALL", self.prefix)
+        env.set("DD4HEP", self.prefix.examples)
+        env.set("DD4hep_DIR", self.prefix)
+        env.set("DD4hep_ROOT", self.prefix)
+        env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib)
+        env.prepend_path('LD_LIBRARY_PATH', self.prefix.lib64)
+
     def setup_run_environment(self, env):
         # used p.ex. in ddsim to find DDDetectors dir
         env.set("DD4hepINSTALL", self.prefix)
