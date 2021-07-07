@@ -47,6 +47,7 @@ class Ghostscript(AutotoolsPackage):
     conflicts('+tesseract', when='platform=darwin', msg='Tesseract does not build correctly on macOS')
 
     patch('nogoto.patch', when='%fj@:4.1.0')
+    patch("freetype-2.10.3.patch")
 
     # Related bug report: https://bugs.ghostscript.com/show_bug.cgi?id=702985
     patch("https://github.com/ArtifexSoftware/ghostpdl/commit/41ef9a0bc36b9db7115fbe9623f989bfb47bbade.patch",
