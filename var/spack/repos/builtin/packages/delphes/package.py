@@ -66,3 +66,7 @@ class Delphes(CMakePackage):
         # make the cards distributed with delphes more easily accessible
         env.set('DELPHES_DIR', self.prefix)
         env.set('DELPHES', self.prefix)
+        env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
+
+    def setup_dependent_build_environment(self, env, dependent_spec):
+        env.prepend_path('ROOT_INCLUDE_PATH', self.prefix.include)
