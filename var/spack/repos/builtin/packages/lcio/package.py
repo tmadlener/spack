@@ -102,3 +102,6 @@ class Lcio(CMakePackage):
                      self.prefix.include + '/pre-generated')
         install('src/cpp/include/IOIMPL/LCEventLazyImpl.h',
                 self.prefix.include + '/IOIMPL/')
+        for header in ['SIOHandlerMgr.h', 'SIOObjectHandler.h']:
+            install('src/cpp/include/SIO/{}'.format(header),
+                    self.prefix.include + '/SIO/')
