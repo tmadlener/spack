@@ -114,3 +114,6 @@ class Libunwind(AutotoolsPackage):
             args += self.enable_or_disable('zlibdebuginfo', variant='zlib')
 
         return args
+
+    def check(self):
+        pass
