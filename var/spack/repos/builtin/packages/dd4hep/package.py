@@ -67,6 +67,7 @@ class Dd4hep(CMakePackage):
     depends_on('hepmc3', when="+hepmc3")
     depends_on('lcio', when="+lcio")
     depends_on('edm4hep', when="+edm4hep")
+    depends_on('py-pytest', type="test")
 
     def cmake_args(self):
         spec = self.spec
@@ -134,3 +135,15 @@ class Dd4hep(CMakePackage):
             version_str = 'v%02d-%02d-%02d.tar.gz' % (major, minor, patch)
 
         return base_url + '/' + version_str
+
+    # dd4hep tests need to run after install step:
+    # disable the usual check
+    def check(self):
+        pass
+
+    # instead add custom check step that runs after installation
+    @run_after('install')
+    def install_check(self):
+        with working_dir(self.build_directory):
+            if self.run_tests:
+                ninja('test')
