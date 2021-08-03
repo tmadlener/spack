@@ -78,3 +78,6 @@ class Libunwind(AutotoolsPackage):
                 args.append('--disable-zlibdebuginfo')
 
         return args
+
+    def check(self):
+        pass
