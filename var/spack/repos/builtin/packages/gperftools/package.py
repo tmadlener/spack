@@ -21,3 +21,6 @@ class Gperftools(AutotoolsPackage):
     version('2.3', sha256='093452ad45d639093c144b4ec732a3417e8ee1f3744f2b0f8d45c996223385ce')
 
     depends_on("unwind")
+    
+    def check(self):
+        pass
