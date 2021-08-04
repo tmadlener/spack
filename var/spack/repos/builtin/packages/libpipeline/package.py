@@ -17,3 +17,6 @@ class Libpipeline(AutotoolsPackage):
 
     depends_on('pkgconfig', type='build')
     depends_on('check', type='test')
+
+    def check(self):
+        pass
