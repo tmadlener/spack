@@ -38,3 +38,6 @@ class Gperftools(AutotoolsPackage):
         args += self.enable_or_disable("libunwind")
 
         return args
+
+    def check(self):
+        pass
