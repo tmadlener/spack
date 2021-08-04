@@ -70,3 +70,6 @@ class Swig(AutotoolsPackage, SourceforgePackage):
         @when(_version)
         def autoreconf(self, spec, prefix):
             which('sh')('./autogen.sh')
+
+    def check(self):
+        pass
