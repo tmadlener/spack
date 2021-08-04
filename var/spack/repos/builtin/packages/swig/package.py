@@ -113,3 +113,6 @@ class Swig(AutotoolsPackage, SourceforgePackage):
     def test(self):
         self._test_version()
         self._test_swiglib()
+
+    def check(self):
+        pass
