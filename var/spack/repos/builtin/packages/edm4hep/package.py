@@ -33,7 +33,7 @@ class Edm4hep(CMakePackage):
 
     depends_on('hepmc@:2', type='test')
     depends_on('heppdt', type='test')
-    depends_on('catch2@3.0.1', type='test')
+    depends_on('catch2@3.0.1:', type='test')
 
     def cmake_args(self):
         args = []
