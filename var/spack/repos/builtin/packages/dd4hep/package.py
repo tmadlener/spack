@@ -101,6 +101,7 @@ class Dd4hep(CMakePackage):
             "-DBOOST_ROOT={0}".format(spec['boost'].prefix),
             "-DBoost_NO_BOOST_CMAKE=ON",
             "-DPYTHON_EXECUTABLE={0}".format(spec['python'].command.path),
+            "-DDD4HEP_HIGH_MEM_POOL_DEPTH=2",
         ]
         return args
 
