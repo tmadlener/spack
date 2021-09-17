@@ -38,3 +38,9 @@ class Gperftools(AutotoolsPackage):
         args += self.enable_or_disable("libunwind")
 
         return args
+
+    def flag_handler(self, name, flags):
+        if name == 'ldlibs':
+            flags.append('-lunwind')
+
+        return (flags, None, None)
