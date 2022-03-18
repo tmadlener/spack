@@ -53,7 +53,7 @@ class FrontierClient(MakefilePackage):
 
     def build(self, spec, prefix):
         with working_dir('client'):
-            make('-j1', 'dist', 'PACPARSER_DIR=' + self.spec['pacparser'].prefix,
+            make('CC=cc', '-j1', 'dist', 'PACPARSER_DIR=' + self.spec['pacparser'].prefix,
                  'EXPAT_DIR=' + self.spec['expat'].prefix,
                  'OPENSSL_DIR=' + self.spec['openssl'].prefix,
                  'ZLIB_DIR=' + self.spec['zlib'].prefix)
