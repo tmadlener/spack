@@ -51,6 +51,10 @@ class Googletest(CMakePackage):
             args.append(self.define("BUILD_GTEST", True))
             args.append(self.define_from_variant("BUILD_GMOCK", "gmock"))
 
+        args.append('-DCMAKE_CXX_FLAGS="-Wno-error"')
+        args.append("-Dgtest_disable_pthreads={0}".format("OFF" if "+pthreads" in spec else "ON"))
+        args.append(self.define_from_variant("BUILD_SHARED_LIBS", "shared"))
+
         return args
 
     @when("@:1.7.0")
