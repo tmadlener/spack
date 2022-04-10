@@ -194,6 +194,13 @@ class Sherpa(AutotoolsPackage):
             "ATOOLS/Org/Run_Parameter.C",
         )
 
+        filter_file(
+            r'#include "recola.h"',
+            '#include "recola.hpp"',
+            "AddOns/Recola/Recola_Interface.H",
+            string=True,
+        )
+
         if self.spec.satisfies("^recola@2:"):
             filter_file(
                 r'#include "recola.h"',
