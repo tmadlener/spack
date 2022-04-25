@@ -33,6 +33,8 @@ class Prmon(CMakePackage):
     depends_on("py-numpy", type="run", when="+plot")
     depends_on("py-pandas", type="run", when="+plot")
 
+    patch('cmake.patch')
+
     def cmake_args(self):
         args = [
             # googletest is fetched and built on the fly
