@@ -2195,6 +2195,7 @@ class SpecBuilder(object):
     def hash(self, pkg, h):
         if pkg not in self._specs:
             self._specs[pkg] = self._hash_lookup[h]
+            concrete_spec = False
         self._hash_specs.append(pkg)
 
     def node(self, pkg):
