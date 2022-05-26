@@ -49,6 +49,11 @@ class Gaudi(CMakePackage):
     variant("xercesc", default=False, description="Build with Xerces-C XML support")
 
     # only build subdirectory GaudiExamples when +examples
+    patch(
+        "https://gitlab.cern.ch/gaudi/Gaudi/-/merge_requests/1335.patch",
+        when="@36.4:36.5",
+        sha256="dc9ce9e88f2b7ae812cf95655f1c62e1b0c6678572ee9718fd7c095da41a6fbd",
+    )
     patch("build_testing.patch", when="@:34")
     # fixes for the cmake config which could not find newer boost versions
     patch("link_target_fixes.patch", when="@33.0:34")
