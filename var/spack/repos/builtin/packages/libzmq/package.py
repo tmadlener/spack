@@ -41,6 +41,9 @@ class Libzmq(AutotoolsPackage):
             description="Use strlcpy from libbsd " +
                         "(will use own implementation if false)")
 
+    variant("libunwind", default=False,
+            description="Build with libunwind support")
+
     depends_on("libsodium", when='+libsodium')
     depends_on("libsodium@:1.0.3", when='+libsodium@:4.1.2')
 
@@ -52,6 +55,8 @@ class Libzmq(AutotoolsPackage):
     depends_on('docbook-xsl', type='build', when='+docs')
 
     depends_on('libbsd', when='+libbsd')
+
+    depends_on('libunwind', when='+libunwind')
 
     conflicts('%gcc@8:', when='@:4.2.2')
 
@@ -75,6 +80,7 @@ class Libzmq(AutotoolsPackage):
 
         config_args.extend(self.enable_or_disable("drafts"))
         config_args.extend(self.enable_or_disable("libbsd"))
+        config_args.extend(self.enable_or_disable("libunwind"))
 
         if '+libsodium' in self.spec:
             config_args.append('--with-libsodium')
