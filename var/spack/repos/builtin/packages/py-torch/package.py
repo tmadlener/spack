@@ -358,6 +358,54 @@ class PyTorch(PythonPackage, CudaPackage, ROCmPackage):
             "caffe2/CMakeLists.txt",
         )
 
+    # Fixes errors in third-party repo
+    @when("@1.11.0")
+    def patch(self):
+        filter_file(
+            "inline RARegCount& operator=" + "(const RARegCount& other) noexcept = default;",
+            "",
+            "third_party/fbgemm/third_party/asmjit/src/asmjit/core/radefs_p.h",
+            string=True,
+        )
+        filter_file(
+            "inline RARegMask& operator=" + "(const RARegMask& other) noexcept = default;",
+            "",
+            "third_party/fbgemm/third_party/asmjit/src/asmjit/core/radefs_p.h",
+            string=True,
+        )
+        filter_file(
+            "size_t currentSize = sb.size();",
+            "",
+            "third_party/fbgemm/third_party/" + "asmjit/src/asmjit/core/emitterutils.cpp",
+            string=True,
+        )
+        filter_file(
+            "currentSize += sb.size() - begin;",
+            "",
+            "third_party/fbgemm/third_party/" + "asmjit/src/asmjit/core/emitterutils.cpp",
+            string=True,
+        )
+        filter_file(
+            "size_t begin = sb.size();",
+            "",
+            "third_party/fbgemm/third_party/" + "asmjit/src/asmjit/core/emitterutils.cpp",
+            string=True,
+        )
+
+    @property
+    def libs(self):
+        # TODO: why doesn't `python_platlib` work here?
+        root = join_path(self.prefix, self.spec["python"].package.platlib, "torch", "lib")
+        return find_libraries("libtorch", root)
+
+    @property
+    def headers(self):
+        # TODO: why doesn't `python_platlib` work here?
+        root = join_path(self.prefix, self.spec["python"].package.platlib, "torch", "include")
+        headers = find_all_headers(root)
+        headers.directories = [root]
+        return headers
+
     def setup_build_environment(self, env):
         """Set environment variables used to control the build.
 
