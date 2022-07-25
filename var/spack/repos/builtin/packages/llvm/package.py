@@ -348,6 +348,11 @@ class Llvm(CMakePackage, CudaPackage):
     #  when/if the bugfix is merged
     patch("D133513.diff", level=0, when="@14:15+lldb+python")
 
+    # Add missing include leading to build fail with clang
+    patch('https://github.com/llvm/llvm-project/commit/b498303066a63a203d24f739b2d2e0e56dca70d1.patch?full_index=1',
+          sha256='514926d661635de47972c7d403c9c4669235aa51e22e56d44676d2a2709179b6',
+          when='@8:11')
+
     # The functions and attributes below implement external package
     # detection for LLVM. See:
     #
