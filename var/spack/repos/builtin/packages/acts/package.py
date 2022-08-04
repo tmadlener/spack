@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
-from spack import *
+from spack.package import *
 
 
 class Acts(CMakePackage, CudaPackage):
@@ -30,16 +30,16 @@ class Acts(CMakePackage, CudaPackage):
     """
 
     homepage = "https://acts.web.cern.ch/ACTS/"
-    git      = "https://github.com/acts-project/acts.git"
+    git = "https://github.com/acts-project/acts.git"
     list_url = "https://github.com/acts-project/acts/releases/"
-    maintainers = ['HadrienG2']
+    maintainers = ["HadrienG2"]
 
-    tags = ['hep']
+    tags = ["hep"]
 
     # Supported Acts versions
     version("main", branch="main")
     version("master", branch="main", deprecated=True)  # For compatibility
-    version("19.6.0", tag='v19.6.0', submodules=True)
+    version("19.6.0", tag="v19.6.0", submodules=True)
     version("19.3.0", commit="747053f60254c5ad3aa1fe7b18ae89c19029f4a6", submodules=True)
     version("19.2.0", commit="adf079e0f7e278837093bf53988da73730804e22", submodules=True)
     version("19.1.0", commit="82f42a2cc80d4259db251275c09b84ee97a7bd22", submodules=True)
@@ -122,35 +122,98 @@ class Acts(CMakePackage, CudaPackage):
     version("0.08.0", commit="99eedb38f305e3a1cd99d9b4473241b7cd641fa9")
 
     # Variants that affect the core Acts library
-    variant('benchmarks', default=False, description='Build the performance benchmarks', when='@0.16:')
-    variant('examples', default=False, description='Build the examples', when='@0.23:16 +digitization +fatras +identification +json +tgeo')
-    variant('examples', default=False, description='Build the examples', when='@17: +fatras +identification +json +tgeo')
-    variant('integration_tests', default=False, description='Build the integration tests')
-    variant('unit_tests', default=False, description='Build the unit tests')
-    variant('log_failure_threshold', default='MAX', description='Log level above which examples should auto-crash')
+    variant(
+        "benchmarks", default=False, description="Build the performance benchmarks", when="@0.16:"
+    )
+    variant(
+        "examples",
+        default=False,
+        description="Build the examples",
+        when="@0.23:16 +digitization +fatras +identification +json +tgeo",
+    )
+    variant(
+        "examples",
+        default=False,
+        description="Build the examples",
+        when="@17: +fatras +identification +json +tgeo",
+    )
+    variant("integration_tests", default=False, description="Build the integration tests")
+    variant("unit_tests", default=False, description="Build the unit tests")
+    variant(
+        "log_failure_threshold",
+        default="MAX",
+        description="Log level above which examples should auto-crash",
+    )
 
     # Variants that enable / disable Acts plugins
-    variant('alignment', default=False, description='Build the alignment package', when='@13:')
-    variant('autodiff', default=False, description='Build the auto-differentiation plugin', when='@1.2:')
-    variant('dd4hep', default=False, description='Build the DD4hep plugin', when='+tgeo')
-    variant('digitization', default=False, description='Build the geometric digitization plugin', when='@:16')
+    variant("alignment", default=False, description="Build the alignment package", when="@13:")
+    variant(
+        "autodiff",
+        default=False,
+        description="Build the auto-differentiation plugin",
+        when="@1.2:",
+    )
+    variant("dd4hep", default=False, description="Build the DD4hep plugin", when="+tgeo")
+    variant(
+        "digitization",
+        default=False,
+        description="Build the geometric digitization plugin",
+        when="@:16",
+    )
     # FIXME: Can't build Exa.TrkX plugin+examples yet, missing cuGraph dep
-    variant('fatras', default=False, description='Build the FAst TRAcking Simulation package', when='@0.16:')
-    variant('fatras_geant4', default=False, description='Build Geant4 Fatras package')
-    variant('identification', default=False, description='Build the Identification plugin')
-    variant('json', default=False, description='Build the Json plugin')
-    variant('legacy', default=False, description='Build the Legacy package')
-    variant('onnx', default=False, description="Build ONNX plugin")
-    variant('odd', default=False, description='Build the Open Data Detector', when='@19.1:')
+    variant(
+        "fatras",
+        default=False,
+        description="Build the FAst TRAcking Simulation package",
+        when="@0.16:",
+    )
+    variant("fatras_geant4", default=False, description="Build Geant4 Fatras package")
+    variant("identification", default=False, description="Build the Identification plugin")
+    variant("json", default=False, description="Build the Json plugin")
+    variant("legacy", default=False, description="Build the Legacy package")
+    variant("onnx", default=False, description="Build ONNX plugin")
+    variant("odd", default=False, description="Build the Open Data Detector", when="@19.1:")
+    variant(
+        "profilecpu",
+        default=False,
+        description="Enable CPU profiling using gperftools",
+        when="@19.3:",
+    )
+    variant(
+        "profilemem",
+        default=False,
+        description="Enable memory profiling using gperftools",
+        when="@19.3:",
+    )
     # FIXME: Cannot build SyCL plugin yet as Spack doesn't have SyCL support
-    variant('tgeo', default=False, description='Build the TGeo plugin', when='+identification')
+    variant("tgeo", default=False, description="Build the TGeo plugin", when="+identification")
 
     # Variants that only affect Acts examples for now
-    variant('geant4', default=False, description='Build the Geant4-based examples', when='@0.23: +examples')
-    variant('hepmc3', default=False, description='Build the HepMC3-based examples', when='@0.23: +examples')
-    variant('pythia8', default=False, description='Build the Pythia8-based examples', when='@0.23: +examples')
-    variant('python', default=False, description='Build python bindings for the examples', when='@14: +examples')
-    variant('analysis', default=False, description='Build analysis applications in the examples')
+    variant(
+        "geant4",
+        default=False,
+        description="Build the Geant4-based examples",
+        when="@0.23: +examples",
+    )
+    variant(
+        "hepmc3",
+        default=False,
+        description="Build the HepMC3-based examples",
+        when="@0.23: +examples",
+    )
+    variant(
+        "pythia8",
+        default=False,
+        description="Build the Pythia8-based examples",
+        when="@0.23: +examples",
+    )
+    variant(
+        "python",
+        default=False,
+        description="Build python bindings for the examples",
+        when="@14: +examples",
+    )
+    variant("analysis", default=False, description="Build analysis applications in the examples")
 
     # Build dependencies
     # FIXME: Use spack's vecmem package once there is one
@@ -183,21 +246,25 @@ class Acts(CMakePackage, CudaPackage):
     depends_on("root @6.20: cxxstd=17", when="+tgeo @0.8.1:")
 
     # ACTS has been using C++17 for a while, which precludes use of old GCC
-    conflicts('%gcc@:7', when='@0.23:')
+    conflicts("%gcc@:7", when="@0.23:")
 
     def cmake_args(self):
         spec = self.spec
 
         def cmake_variant(cmake_label, spack_variant):
-            enabled = spec.satisfies('+' + spack_variant)
+            enabled = spec.satisfies("+" + spack_variant)
             return "-DACTS_BUILD_{0}={1}".format(cmake_label, enabled)
 
+        def enable_cmake_variant(cmake_label, spack_variant):
+            enabled = spec.satisfies(spack_variant)
+            return "-DACTS_ENABLE_{0}={1}".format(cmake_label, enabled)
+
         def example_cmake_variant(cmake_label, spack_variant):
-            enabled = spec.satisfies('+examples +' + spack_variant)
+            enabled = spec.satisfies("+examples +" + spack_variant)
             return "-DACTS_BUILD_EXAMPLES_{0}={1}".format(cmake_label, enabled)
 
         def plugin_label(plugin_name):
-            if spec.satisfies('@0.33:'):
+            if spec.satisfies("@0.33:"):
                 return "PLUGIN_" + plugin_name
             else:
                 return plugin_name + "_PLUGIN"
@@ -208,10 +275,10 @@ class Acts(CMakePackage, CudaPackage):
         integration_tests_label = "INTEGRATIONTESTS"
         unit_tests_label = "UNITTESTS"
         legacy_plugin_label = "LEGACY_PLUGIN"
-        if spec.satisfies('@:0.15'):
+        if spec.satisfies("@:0.15"):
             integration_tests_label = "INTEGRATION_TESTS"
             unit_tests_label = "TESTS"
-        if spec.satisfies('@:0.32'):
+        if spec.satisfies("@:0.32"):
             legacy_plugin_label = "LEGACY"
 
         args = [
@@ -233,39 +300,42 @@ class Acts(CMakePackage, CudaPackage):
             cmake_variant(legacy_plugin_label, "legacy"),
             cmake_variant("ODD", "odd"),
             plugin_cmake_variant("ONNX", "onnx"),
+            enable_cmake_variant("CPU_PROFILING", "profilecpu"),
+            enable_cmake_variant("MEMORY_PROFILING", "profilemem"),
             example_cmake_variant("PYTHIA8", "pythia8"),
             example_cmake_variant("PYTHON_BINDINGS", "python"),
             plugin_cmake_variant("TGEO", "tgeo"),
-            cmake_variant(unit_tests_label, "unit_tests")
+            cmake_variant(unit_tests_label, "unit_tests"),
         ]
 
-        log_failure_threshold = spec.variants['log_failure_threshold'].value
+        log_failure_threshold = spec.variants["log_failure_threshold"].value
         args.append("-DACTS_LOG_FAILURE_THRESHOLD={0}".format(log_failure_threshold))
 
-        if spec.satisfies('+autodiff'):
+        if spec.satisfies("+autodiff"):
             args.append("-DACTS_USE_SYSTEM_AUTODIFF=ON")
 
-        if '+cuda' in spec:
-            cuda_arch = spec.variants['cuda_arch'].value
-            if cuda_arch != 'none':
-                args.append('-DCUDA_FLAGS=-arch=sm_{0}'.format(cuda_arch[0]))
+        if "+cuda" in spec:
+            cuda_arch = spec.variants["cuda_arch"].value
+            if cuda_arch != "none":
+                args.append("-DCUDA_FLAGS=-arch=sm_{0}".format(cuda_arch[0]))
 
-        if spec.satisfies('@19.1: +dd4hep'):
-            args.append('-DACTS_USE_SYSTEM_ACTSDD4HEP=ON')
+        if spec.satisfies("@19.1: +dd4hep"):
+            args.append("-DACTS_USE_SYSTEM_ACTSDD4HEP=ON")
 
-        if spec.satisfies('@:16'):
+        if spec.satisfies("@:16"):
             args.append(plugin_cmake_variant("DIGITIZATION", "digitization"))
 
-        if spec.satisfies('@0.33: +json'):
+        if spec.satisfies("@0.33: +json"):
             args.append("-DACTS_USE_SYSTEM_NLOHMANN_JSON=ON")
-        elif spec.satisfies('@0.14.0: +json'):
+        elif spec.satisfies("@0.14.0: +json"):
             args.append("-DACTS_USE_BUNDLED_NLOHMANN_JSON=OFF")
 
-        if spec.satisfies('@18: +python'):
+        if spec.satisfies("@18: +python"):
             args.append("-DACTS_USE_SYSTEM_PYBIND11=ON")
 
-        if 'root' in spec:
-            cxxstd = spec['root'].variants['cxxstd'].value
+        if "root" in spec:
+            cxxstd = spec["root"].variants["cxxstd"].value
             args.append("-DCMAKE_CXX_STANDARD={0}".format(cxxstd))
 
         return args
+
