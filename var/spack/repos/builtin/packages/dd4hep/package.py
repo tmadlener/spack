@@ -91,6 +91,7 @@ class Dd4hep(CMakePackage):
     extends('python')
     depends_on('xerces-c', when='+xercesc')
     depends_on('geant4@10.2.2:', when='+ddg4')
+    depends_on('geant4-data', when='+ddg4')
     depends_on('assimp@5.0.2:', when='+ddcad')
     depends_on('hepmc3', when="+hepmc3")
     depends_on('intel-tbb', when='+tbb')
@@ -151,6 +152,14 @@ class Dd4hep(CMakePackage):
         subpackages = ' '.join(subpackages)
         args += [self.define('DD4HEP_BUILD_PACKAGES', subpackages)]
         return args
+
+
+    def setup_run_environment(self, env):
+        # used p.ex. in ddsim to find DDDetectors dir
+        env.set("DD4hepINSTALL", self.prefix)
+        env.set("DD4HEP", self.prefix.examples)
+        env.set("DD4hep_DIR", self.prefix)
+        env.set("DD4hep_ROOT", self.prefix)
 
     def setup_run_environment(self, env):
         # used p.ex. in ddsim to find DDDetectors dir
