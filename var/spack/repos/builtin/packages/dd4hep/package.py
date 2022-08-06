@@ -224,6 +224,13 @@ class Dd4hep(CMakePackage):
         env.set("DD4hep_DIR", self.prefix)
         env.set("DD4hep_ROOT", self.prefix)
 
+    def setup_run_environment(self, env):
+        # used p.ex. in ddsim to find DDDetectors dir
+        env.set("DD4hepINSTALL", self.prefix)
+        env.set("DD4HEP", self.prefix.examples)
+        env.set("DD4hep_DIR", self.prefix)
+        env.set("DD4hep_ROOT", self.prefix)
+
     def url_for_version(self, version):
         # dd4hep releases are dashes and padded with a leading zero
         # the patch version is omitted when 0
