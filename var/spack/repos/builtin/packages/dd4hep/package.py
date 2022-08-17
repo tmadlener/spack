@@ -16,22 +16,23 @@ class Dd4hep(CMakePackage):
        It distributed under the LGPLv3 License."""
 
     homepage = "https://dd4hep.web.cern.ch/dd4hep/"
-    url      = "https://github.com/AIDASoft/DD4hep/archive/v01-12-01.tar.gz"
-    git      = "https://github.com/AIDASoft/DD4hep.git"
+    url = "https://github.com/AIDASoft/DD4hep/archive/v01-12-01.tar.gz"
+    git = "https://github.com/AIDASoft/DD4hep.git"
 
-    maintainers = ['vvolkl', 'drbenmorgan']
+    maintainers = ["vvolkl", "drbenmorgan"]
 
-    tags = ['hep']
+    tags = ["hep"]
 
-    version('master', branch='master')
-    version('1.21', sha256='0f9fe9784bf28fa20ce5555ff074430da430e9becc2566fe11e27c4904a51c94')
-    version('1.20.2', sha256='3dab7a300f749452791e160db9394180b65533e91b1b628e568da72ca79b211a')
-    version('1.20.1', sha256='18c18a125583c39cb808c602e052cc2379aa3a8029aa78dbb40bcc31f1deb798')
-    version('1.20', sha256='cf6af0c486d5c84e8c8a8e40ea16cec54d4ed78bffcef295a0eeeaedf51cab59')
-    version('1.19', sha256='d2eccf5e8402ba7dab2e1d7236e12ee4db9b1c5e4253c40a140bf35580db1d9b')
-    version('1.18', sha256='1e909a42b969dfd966224fa8ab1eca5aa05136baf3c00a140f2f6d812b497152')
-    version('1.17', sha256='036a9908aaf1e13eaf5f2f43b6f5f4a8bdda8183ddc5befa77a4448dbb485826')
-    version('1.16.1', sha256='c8b1312aa88283986f89cc008d317b3476027fd146fdb586f9f1fbbb47763f1a')
+    version("master", branch="master")
+    version("1.22", sha256="0e729b8897b7a9c348bc3304c63d4efd1a88e032a2ff5a8c4daf6c927fd7f8ee")
+    version("1.21", sha256="0f9fe9784bf28fa20ce5555ff074430da430e9becc2566fe11e27c4904a51c94")
+    version("1.20.2", sha256="3dab7a300f749452791e160db9394180b65533e91b1b628e568da72ca79b211a")
+    version("1.20.1", sha256="18c18a125583c39cb808c602e052cc2379aa3a8029aa78dbb40bcc31f1deb798")
+    version("1.20", sha256="cf6af0c486d5c84e8c8a8e40ea16cec54d4ed78bffcef295a0eeeaedf51cab59")
+    version("1.19", sha256="d2eccf5e8402ba7dab2e1d7236e12ee4db9b1c5e4253c40a140bf35580db1d9b")
+    version("1.18", sha256="1e909a42b969dfd966224fa8ab1eca5aa05136baf3c00a140f2f6d812b497152")
+    version("1.17", sha256="036a9908aaf1e13eaf5f2f43b6f5f4a8bdda8183ddc5befa77a4448dbb485826")
+    version("1.16.1", sha256="c8b1312aa88283986f89cc008d317b3476027fd146fdb586f9f1fbbb47763f1a")
     # versions older than 1.16.1 are no longer supported
     # (they need several patches like https://github.com/AIDASoft/DD4hep/pull/796)
     version('1.16', sha256='ea9755cd255cf1b058e0e3cd743101ca9ca5ff79f4c60be89f9ba72b1ae5ec69', deprecated=True)
