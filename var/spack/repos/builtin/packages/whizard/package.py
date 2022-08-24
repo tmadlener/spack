@@ -19,15 +19,19 @@ class Whizard(AutotoolsPackage):
 
     maintainers = ['vvolkl']
 
-    version('master', branch="master")
-    version('3.0.1', sha256='1463abd6c50ffe72029abc6f5a7d28ec63013852bfe5914cb464b58202c1437c')
-    version('3.0.0_alpha', sha256='4636e5a10350bb67ccc98cd105bc891ea04f3393c2420f81be3d21240be20009')
-    version('2.8.5', sha256='0f633e5620aa7dd50336b492e8a76bfae15b15943ea842010346ad7610818ecd')
-    version('2.8.4', sha256='49893f077484470934a9d6e1545bbda7d398076568bceda00880d58132f26432')
-    version('2.8.3', sha256='96a9046682d4b992b477eb96d561c3db789207e1049b60c9bd140db40eb1e5d7')
-    version('2.8.2', sha256='32c9be342d01b3fc6f947fddce74bf2d81ece37fb39bca1f37778fb0c07e2568')
-    version('2.8.1', sha256='0c759ce0598e25f38e04659f745c5963d238c4b5c12209f16449b6c0bc6dc64e')
-    version('2.8.0', sha256='3b5175eafa879d1baca20237d18fb2b18bee89631e73ada499de9c082d009696')
+    version("master", branch="master")
+    version("3.0.3", sha256="20f2269d302fc162a6aed8e781b504ba5112ef0711c078cdb08b293059ed67cf")
+    version("3.0.2", sha256="f1db92cd95a0281f6afbf4ac32ab027670cb97a57ad8f5139c0d1f61593d66ec")
+    version("3.0.1", sha256="1463abd6c50ffe72029abc6f5a7d28ec63013852bfe5914cb464b58202c1437c")
+    version(
+        "3.0.0_alpha", sha256="4636e5a10350bb67ccc98cd105bc891ea04f3393c2420f81be3d21240be20009"
+    )
+    version("2.8.5", sha256="0f633e5620aa7dd50336b492e8a76bfae15b15943ea842010346ad7610818ecd")
+    version("2.8.4", sha256="49893f077484470934a9d6e1545bbda7d398076568bceda00880d58132f26432")
+    version("2.8.3", sha256="96a9046682d4b992b477eb96d561c3db789207e1049b60c9bd140db40eb1e5d7")
+    version("2.8.2", sha256="32c9be342d01b3fc6f947fddce74bf2d81ece37fb39bca1f37778fb0c07e2568")
+    version("2.8.1", sha256="0c759ce0598e25f38e04659f745c5963d238c4b5c12209f16449b6c0bc6dc64e")
+    version("2.8.0", sha256="3b5175eafa879d1baca20237d18fb2b18bee89631e73ada499de9c082d009696")
 
     variant(
         'hepmc',
@@ -98,13 +102,14 @@ class Whizard(AutotoolsPackage):
     def configure_args(self):
         spec = self.spec
         args = [
-            '--enable-hepmc=%s' % ("no" if "hepmc=off" in spec else "yes"),
-            '--enable-fastjet=%s' % ("yes" if "+fastjet" in spec else "no"),
-            '--enable-pythia8=%s' % ("yes" if "+pythia8" in spec else "no"),
-            '--enable-lcio=%s' % ("yes" if "+lcio" in spec else "no"),
-            '--enable-lhapdf=%s' % ("yes" if "+lhapdf" in spec else "no"),
-            '--enable-openloops=%s' % ("yes" if "+openloops" in spec
-                                       else "no"),
+            "TIRPC_CFLAGS=-I%s" % spec["libtirpc"].prefix.include.tirpc,
+            "TIRPC_LIBS=-ltirpc",
+            "--enable-hepmc=%s" % ("no" if "hepmc=off" in spec else "yes"),
+            "--enable-fastjet=%s" % ("yes" if "+fastjet" in spec else "no"),
+            "--enable-pythia8=%s" % ("yes" if "+pythia8" in spec else "no"),
+            "--enable-lcio=%s" % ("yes" if "+lcio" in spec else "no"),
+            "--enable-lhapdf=%s" % ("yes" if "+lhapdf" in spec else "no"),
+            "--enable-openloops=%s" % ("yes" if "+openloops" in spec else "no"),
             # todo: hoppet
             # todo: recola
             # todo: looptools
