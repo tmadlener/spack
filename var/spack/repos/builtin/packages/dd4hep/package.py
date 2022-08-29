@@ -102,6 +102,7 @@ class Dd4hep(CMakePackage):
     )
 
     generator = "Ninja"
+    parallel = False # todo: workaround/test, remove
 
     # Workarounds for various TBB issues in DD4hep v1.11
     # See https://github.com/AIDASoft/DD4hep/pull/613 .
