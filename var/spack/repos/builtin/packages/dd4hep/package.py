@@ -106,6 +106,9 @@ class Dd4hep(CMakePackage):
     conflicts('^cmake@3.16:3.17.0', when='@1.15',
               msg='cmake version with buggy FindPython breaks dd4hep cmake config')
     conflicts('~ddrec+dddetectors', msg="Need to enable +ddrec to build +dddetectors.")
+    
+    def build(self): # todo: workaround
+        ninja('-v', '-j 1')
 
     def cmake_args(self):
         spec = self.spec
