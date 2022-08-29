@@ -170,6 +170,9 @@ class Dd4hep(CMakePackage):
     )
     conflicts("~ddrec+dddetectors", msg="Need to enable +ddrec to build +dddetectors.")
 
+    def build(self): # todo: workaround
+        ninja('-v', '-j 1')
+
     def cmake_args(self):
         spec = self.spec
         cxxstd = spec["root"].variants["cxxstd"].value
