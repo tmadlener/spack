@@ -102,7 +102,7 @@ class Dd4hep(CMakePackage):
     )
 
     generator = "Ninja"
-    parallel = False # todo: workaround/test, remove
+    parallel = False  # todo: workaround/test, remove
 
     # Workarounds for various TBB issues in DD4hep v1.11
     # See https://github.com/AIDASoft/DD4hep/pull/613 .
@@ -170,8 +170,9 @@ class Dd4hep(CMakePackage):
     )
     conflicts("~ddrec+dddetectors", msg="Need to enable +ddrec to build +dddetectors.")
 
-    def build(self): # todo: workaround
-        ninja('-v', '-j 1')
+    def build(self, spec, prefix):  # todo: workaround
+        with working_dir(self.build_directory):
+            ninja("-v", "-j 1")
 
     def cmake_args(self):
         spec = self.spec
