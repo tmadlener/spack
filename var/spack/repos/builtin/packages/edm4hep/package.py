@@ -82,8 +82,8 @@ class Edm4hep(CMakePackage):
     depends_on("py-pyyaml", type="build")
 
     depends_on("hepmc@:2", type="test", when="@:0.4.0")
-    depends_on("hepmc3", type="test", when="@0.4.1:")
-    depends_on("heppdt", type="test")
+    depends_on("hepmc3", when="@0.4.1:")
+    depends_on("heppdt")
     depends_on("catch2@3.0.1:", type="test")
 
     def cmake_args(self):
