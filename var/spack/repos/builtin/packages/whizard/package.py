@@ -98,13 +98,15 @@ class Whizard(AutotoolsPackage):
         env.set('CXX', self.compiler.cxx)
         env.set('FC', self.compiler.fc)
         env.set('F77', self.compiler.fc)
-        env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
+        if "+lcio" in self.spec:
+          env.set('LCIO', self.spec["lcio"].prefix)
+        #env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
 
     def configure_args(self):
         spec = self.spec
         args = [
             "TIRPC_CFLAGS=-I%s" % spec["libtirpc"].prefix.include.tirpc,
-            "TIRPC_LIBS=-ltirpc",
+            #"TIRPC_LIBS=-ltirpc",
             "--enable-hepmc=%s" % ("no" if "hepmc=off" in spec else "yes"),
             "--enable-fastjet=%s" % ("yes" if "+fastjet" in spec else "no"),
             "--enable-pythia8=%s" % ("yes" if "+pythia8" in spec else "no"),
@@ -124,8 +126,10 @@ class Whizard(AutotoolsPackage):
             args.append('--with-lcio=%s' % spec['lcio'].prefix)
         if "hepmc=3" in spec:
             args.append('--with-hepmc=%s' % spec['hepmc3'].prefix)
+            args.append('--with-HepMC=%s' % spec['hepmc3'].prefix)
         if "hepmc=2" in spec:
             args.append('--with-hepmc=%s' % spec['hepmc'].prefix)
+            args.append('--with-HepMC=%s' % spec['hepmc'].prefix)
         if "+openmp" not in spec:
             args.append('--disable-openmp')
         return args
