@@ -99,7 +99,7 @@ class Whizard(AutotoolsPackage):
         env.set("CXX", self.compiler.cxx)
         env.set("FC", self.compiler.fc)
         env.set("F77", self.compiler.fc)
-        env.prepend_path("LD_LIBRARY_PATH", spec["libtirpc"].prefix.lib)
+        env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
 
     def configure_args(self):
         spec = self.spec
