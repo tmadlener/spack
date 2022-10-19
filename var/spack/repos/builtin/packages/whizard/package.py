@@ -99,13 +99,15 @@ class Whizard(AutotoolsPackage):
         env.set("CXX", self.compiler.cxx)
         env.set("FC", self.compiler.fc)
         env.set("F77", self.compiler.fc)
-        env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
+        if "+lcio" in self.spec:
+          env.set('LCIO', self.spec["lcio"].prefix)
+        #env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
 
     def configure_args(self):
         spec = self.spec
         args = [
             "TIRPC_CFLAGS=-I%s" % spec["libtirpc"].prefix.include.tirpc,
-            "TIRPC_LIBS=-ltirpc",
+            #"TIRPC_LIBS=-ltirpc",
             "--enable-hepmc=%s" % ("no" if "hepmc=off" in spec else "yes"),
             "--enable-fastjet=%s" % ("yes" if "+fastjet" in spec else "no"),
             "--enable-pythia8=%s" % ("yes" if "+pythia8" in spec else "no"),
