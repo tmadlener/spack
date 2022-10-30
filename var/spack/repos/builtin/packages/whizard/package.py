@@ -102,6 +102,10 @@ class Whizard(AutotoolsPackage):
           env.set('LCIO', self.spec["lcio"].prefix)
         #env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
 
+    def setup_run_environment(self, env):
+        env.prepend_path("LD_LIBRARY_PATH", self.spec["libtirpc"].prefix.lib)
+        env.prepend_path("LD_LIBRARY_PATH", self.spec["openloops"].prefix.lib)
+
     def configure_args(self):
         spec = self.spec
         args = [
