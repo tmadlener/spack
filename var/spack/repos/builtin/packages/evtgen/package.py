@@ -17,7 +17,8 @@ class Evtgen(CMakePackage):
 
     maintainers = ['vvolkl']
 
-    version('02.00.00', sha256='02372308e1261b8369d10538a3aa65fe60728ab343fcb64b224dac7313deb719')
+    version("02.02.00", sha256="0c626e51cb17e799ad0ffd0beea5cb94d7ac8a5f8777b746aa1944dd26071ecf")
+    version("02.00.00", sha256="02372308e1261b8369d10538a3aa65fe60728ab343fcb64b224dac7313deb719")
     # switched to cmake in 02.00.00
     version('01.07.00', sha256='2648f1e2be5f11568d589d2079f22f589c283a2960390bbdb8d9d7f71bc9c014', deprecated=True)
 
@@ -45,6 +46,16 @@ class Evtgen(CMakePackage):
     conflicts('+hepmc3', when='@:01',
               msg='hepmc3 support was added in 02.00.00')
 
+    @property
+    def root_cmakelists_dir(self):
+        # deal with inconsistent intermediate folders of tarballs
+        # 02.00.00 only has 'R02-00-00'
+        # but 02.02.00 has 'EvtGen/R02-02-00'
+        if self.spec.satisfies("@02.02.00:"):
+            return "R" + str(self.version).replace(".", "-")
+        else:
+            return ""
+
     def cmake_args(self):
         args = []
 
@@ -60,7 +71,7 @@ class Evtgen(CMakePackage):
         # the `-undefined dynamic_lookup` flag enables weak linking on Mac
         # Patch taken from CMS recipe:
         # https://github.com/cms-sw/cmsdist/blob/IB/CMSSW_12_1_X/master/evtgen.spec#L48
-        if not self.spec.satisfies("platform=darwin"):
+        if not self.spec.satisfies("%gcc platform=darwin"):
             return
 
         filter_file('-shared', '-dynamiclib -undefined dynamic_lookup', 'make.inc')
