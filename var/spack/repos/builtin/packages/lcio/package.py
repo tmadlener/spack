@@ -15,6 +15,8 @@ class Lcio(CMakePackage):
     url      = "https://github.com/iLCSoft/LCIO/archive/v02-13-03.tar.gz"
 
     tags = ['hep']
+    
+    parallel = False
 
     maintainers = ['gaede', 'vvolkl']
 
