@@ -11,53 +11,59 @@ class Lcio(CMakePackage):
     """HEP Library for Linear Collider Input/Output"""
 
     homepage = "http://lcio.desy.de"
-    git      = "https://github.com/iLCSoft/LCIO.git"
-    url      = "https://github.com/iLCSoft/LCIO/archive/v02-13-03.tar.gz"
+    git = "https://github.com/iLCSoft/LCIO.git"
+    url = "https://github.com/iLCSoft/LCIO/archive/v02-13-03.tar.gz"
 
-    tags = ['hep']
-    
-    parallel = False
+    tags = ["hep"]
 
-    maintainers = ['gaede', 'vvolkl']
+    maintainers = ["gaede", "vvolkl"]
 
-    version('master', branch='master')
-    version('2.17.1', sha256='e7e4e4399a53680dfb8cc497e7f59633a96361f8f9435d1b044a90fd3ad97ab7')
-    version('2.17',   sha256='a81e07790443f0e2d9abb18bc3b5f2929edbc8d8e4f307f931679eaa39bb044a')
-    version('2.16.1', sha256='992a649f864785e62fe12d7a638b2696c91f9535881de33f22b3cceabcdcdbaf')
-    version('2.16',   sha256='aff7707750d821f31cbae3d7529fd8e22457f48d759e834ec01aa9389b5dbf1a')
-    version('2.15.4', sha256='720c8130762d445df44d2c245da01c0a1ca807d7ed62362cebf7b3a99f9a37d7')
-    version('2.15.3', sha256='a00f9e1e8fc98151e88e603bbfca8088ded21ae3daca5c91869628a19af0cefb')
-    version('2.15.2', sha256='9886c6f5c275c1c51bde978e4f5514bb4ea9588239f1d3ee95a76ef4b686e69d')
-    version('2.15.1', sha256='32921feb162408357d00a81cdd489c374b3ed8ab6f442d798b22835de7243d32')
-    version('2.15',   sha256='27ea161a36ca93bf6b11381b63e90d100d3aeda3a00377bebcf2972c436aa3a7')
-    version('2.14.2', sha256='e64f4bf932edf6d6cdaf0162e5104f8fbf3e5fd9737c7a080c48859009621919')
-    version('2.14.1', sha256='ef670b10b6a01649fd4f3afcf38cbbee4cd83133612f922977260a6fea2bf30f')
-    version('2.14',   sha256='85a7da4873b3501887d371cb8d993cb9f373323b190a8d523ad91b900a5f1284')
-    version('2.13.3', sha256='35aaa7989be33574a7c44ea7e6d7780ab26ef8bd4aa29d495f3831a3cd269304')
-    version('2.13.2', sha256='9f153ba13e56ee16795378f9192678d40df1faca51d00aaa8fb80547bfecb8d8')
-    version('2.13.1', sha256='aa572e2ba38c0cadd6a92fa933c3ed97e21d016c7982578d3f293901169f4ec0')
+    version("master", branch="master")
+    version("2.19", sha256="2d6b37094d8d556ab0ba0efa632f10d8b851f533ca5c767e436397df18cb57c7")
+    version("2.18", sha256="e722df7f4a6adcc2459ea1c6488a2a6e40bb04f7ee99536fdc60b51e6c80f565")
+    version("2.17.1", sha256="e7e4e4399a53680dfb8cc497e7f59633a96361f8f9435d1b044a90fd3ad97ab7")
+    version("2.17", sha256="a81e07790443f0e2d9abb18bc3b5f2929edbc8d8e4f307f931679eaa39bb044a")
+    version("2.16.1", sha256="992a649f864785e62fe12d7a638b2696c91f9535881de33f22b3cceabcdcdbaf")
+    version("2.16", sha256="aff7707750d821f31cbae3d7529fd8e22457f48d759e834ec01aa9389b5dbf1a")
+    version("2.15.4", sha256="720c8130762d445df44d2c245da01c0a1ca807d7ed62362cebf7b3a99f9a37d7")
+    version("2.15.3", sha256="a00f9e1e8fc98151e88e603bbfca8088ded21ae3daca5c91869628a19af0cefb")
+    version("2.15.2", sha256="9886c6f5c275c1c51bde978e4f5514bb4ea9588239f1d3ee95a76ef4b686e69d")
+    version("2.15.1", sha256="32921feb162408357d00a81cdd489c374b3ed8ab6f442d798b22835de7243d32")
+    version("2.15", sha256="27ea161a36ca93bf6b11381b63e90d100d3aeda3a00377bebcf2972c436aa3a7")
+    version("2.14.2", sha256="e64f4bf932edf6d6cdaf0162e5104f8fbf3e5fd9737c7a080c48859009621919")
+    version("2.14.1", sha256="ef670b10b6a01649fd4f3afcf38cbbee4cd83133612f922977260a6fea2bf30f")
+    version("2.14", sha256="85a7da4873b3501887d371cb8d993cb9f373323b190a8d523ad91b900a5f1284")
+    version("2.13.3", sha256="35aaa7989be33574a7c44ea7e6d7780ab26ef8bd4aa29d495f3831a3cd269304")
+    version("2.13.2", sha256="9f153ba13e56ee16795378f9192678d40df1faca51d00aaa8fb80547bfecb8d8")
+    version("2.13.1", sha256="aa572e2ba38c0cadd6a92fa933c3ed97e21d016c7982578d3f293901169f4ec0")
 
-    variant('cxxstd',
-            default='17',
-            values=('11', '14', '17', '20'),
-            multi=False,
-            description='Use the specified C++ standard when building.')
-    variant("jar", default=False,
-            description="Turn on to build/install lcio.jar")
-    variant("rootdict", default=True,
-            description="Turn on to build/install ROOT dictionary.")
-    variant("examples", default=False,
-            description="Turn on to build LCIO examples")
+    variant(
+        "cxxstd",
+        default="17",
+        values=(
+            "11",
+            "14",
+            "17",
+            "20",
+            # c++17 became minimum with 2.18
+            conditional("17", "20", when="@2.18:"),
+        ),
+        multi=False,
+        description="Use the specified C++ standard when building.",
+    )
+    variant("jar", default=False, description="Turn on to build/install lcio.jar")
+    variant("rootdict", default=True, description="Turn on to build/install ROOT dictionary.")
+    variant("examples", default=False, description="Turn on to build LCIO examples")
 
-    depends_on('sio@0.0.2:', when='@2.14:')
-    depends_on('sio@0.1:', when='@2.16:')
+    depends_on("sio@0.0.2:", when="@2.14:")
+    depends_on("sio@0.1:", when="@2.16:")
 
-    depends_on('root@6.04:', when="+rootdict")
-    depends_on('root@6.04: cxxstd=11', when="+rootdict cxxstd=11")
-    depends_on('root@6.04: cxxstd=14', when="+rootdict cxxstd=14")
-    depends_on('root@6.04: cxxstd=17', when="+rootdict cxxstd=17")
-    depends_on('root@6.04: cxxstd=20', when="+rootdict cxxstd=20")
-    depends_on('openjdk', when="+jar")
+    depends_on("root@6.04:", when="+rootdict")
+    depends_on("root@6.04: cxxstd=11", when="+rootdict cxxstd=11")
+    depends_on("root@6.04: cxxstd=14", when="+rootdict cxxstd=14")
+    depends_on("root@6.04: cxxstd=17", when="+rootdict cxxstd=17")
+    depends_on("root@6.04: cxxstd=20", when="+rootdict cxxstd=20")
+    depends_on("openjdk", when="+jar")
     # build error with +termlib, to be investigated
     depends_on('ncurses~termlib', when="+examples")
     depends_on('delphes', when="+examples")
