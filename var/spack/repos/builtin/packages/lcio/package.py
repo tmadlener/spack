@@ -17,6 +17,8 @@ class Lcio(CMakePackage):
     tags = ["hep"]
 
     maintainers = ["gaede", "vvolkl"]
+    
+    parallel = False
 
     version("master", branch="master")
     version("2.19", sha256="2d6b37094d8d556ab0ba0efa632f10d8b851f533ca5c767e436397df18cb57c7")
