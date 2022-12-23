@@ -20,6 +20,7 @@ class Delphes(CMakePackage):
     maintainers("drbenmorgan", "vvolkl", "selvaggi")
 
     version("master", branch="master")
+    version("3.5.1pre05", tag="3.5.1pre05")
     version("3.5.1pre04", tag="3.5.1pre04")
     version("3.5.1pre03", tag="3.5.1pre03")
     version("3.5.1pre02", tag="3.5.1pre02")
